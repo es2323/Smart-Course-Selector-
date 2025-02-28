@@ -6,26 +6,74 @@
     <meta name = "viewport" content = "width = device-width, initial-scale = 1.0"> <!--allow to be mobile responsive--> 
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap" rel="stylesheet">
     <script src = "https://cdn.tailwindcss.com"></script> <!--tailwind css -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'quiz/styles.css' %}">
 </head>
 <body>
+    <nav class="bg-[#A27B5C] shadow-md sticky top-0 z-50">
+        <div class="max-w-8xl px-4 sm:px-6 lg:px-8">
+          <div class="flex justify-between items-center h-26">
+            <!-- Logo -->
+            <div class="flex-shrink-0">
+              <a href="">
+                <span class="text-2xl font-bold text-gray-800 uppercase tracking-wide">
+                    <h1 class="text-3xl font-bold">Smart </h1>
+                    <h1 class="text-3xl font-bold">STEM Course</h1>
+                    <h1 class="text-3xl font-bold">Selector</h1>
+                </span>   
+              </a>
+            </div>
     
-    <div id="header" class="px-6 py-6" style="background-color: #A27B56;">
-
-        <h1 class="text-3xl font-bold">Smart</h1>
-        <h1 class="text-3xl font-bold">Course</h1>
-        <h1 class="text-3xl font-bold">Selector</h1>
-    </div>
+            <!-- Navigation Links (Desktop) -->
+            <div class="hidden md:flex space-x-6" style="margin-top: 5%;">
+              <a href="#" class="text-xl text-gray-800 hover:text-[#DCD7C9] font-bold transition duration-300">
+                Home
+              </a>
+              <a href="#" class="text-xl text-gray-800 hover:text-[#DCD7C9] font-bold transition duration-300">
+                About us
+              </a>
+              <a href="#" class="text-xl text-gray-800 hover:text-[#DCD7C9] font-bold transition duration-300">
+                Feedback
+              </a>
+            </div>
     
-        <div class="bg-[#DCD7C9] h-screen px-6 py-24 flex flex-col items-center justify-start">
-            <h1 class="text-3xl font-bold text-center font-josefin-sans mt-6">
+            <!-- Mobile Menu Button -->
+            <div id="mobileMenuButton" class="md:hidden">
+              <button class="text-gray-800 hover:text-blue-600 focus:outline-none">
+                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+    
+        <!-- Mobile Menu (Hidden by Default) -->
+        <div id="mobileMenu" class="md:hidden hidden">
+          <div class="px-2 pt-2 pb-3 space-y-1">
+            <a href="#" class="text-xl block text-gray-800 hover:text-[#DCD7C9] font-bold transition duration-300">
+              Home
+            </a>
+            <a href="#" class="text-xl block text-gray-800 hover:text-[#DCD7C9] font-bold transition duration-300">
+              About us
+            </a>
+            <a href="#" class="text-xl block text-gray-800 hover:text-[#DCD7C9] font-bold transition duration-300">
+              Feedback
+            </a>
+          </div>
+        </div>
+      </nav>
+      
+        <div class="px-6 py-24 flex flex-col items-center justify-start">
+            <h1 class="text-4xl font-bold text-gray-800 uppercase tracking-wide  text-center mt-6">
                 FIND THE PERFECT COURSE FOR YOU
             </h1>
             <p class="mt-6 text-center text-[26px] font-josefin-sans">
-                Not sure which course suits you best? Answer a few quick questions, and we'll help you discover the perfect fit based on your interests and strengths!
+                Not sure which course suits you best? Answer a few quick<br>questions, and we'll help you discover the perfect fit<br> based on your interests and strengths!
             </p>
-            <a href="#" class="mt-12 bg-[#3F4F44] text-white px-6 py-3 rounded-lg font-josefin-sans text-[26px]">Start Quiz</a>
+            <a href="#" class="mt-12 bg-[#3F4F44] text-white px-6 py-3 rounded-lg font-josefin-sans text-[26px] hover:bg-[#2C3930] active:text-[#DCD7C9]">Start Quiz</a>
         </div>
-  
-    
+
+        <script src="{% static 'quiz/script.js' %}"></script>
 </body>
 </html>
