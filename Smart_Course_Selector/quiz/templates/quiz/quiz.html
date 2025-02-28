@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src = "https://cdn.tailwindcss.com"></script> <!--tailwind css -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'quiz/styles.css' %}">
+</head>
+<body class="flex items-center justify-center">
+    <div class="container mx-auto text-center px-12 py-16">
+        <div class="p-16 rounded-lg shadow-lg" style="background-color: #3F4F44;">
+            {% csrf_token %}
+            <h2 class="text-2xl font-bold font-josefin-sans text-white mb-6">{{ question.text }}</h2>
+        </div>
+        <form method="post" action="{% if next_question_id %}{% url 'quiz_question' next_question_id %}{% else %}#{% endif %}">
+            <div class="flex flex-col mt-24 items-center">
+                <div class="flex space-x-60 mb-16">
+                    <label class="block">
+                        <input type="radio" name="answer" value="Yes" class="hidden peer">
+                        <div class="text-2xl px-24 py-8 bg-[#A27B5C] text-white rounded-lg cursor-pointer hover:bg-[#8b694e] peer-checked:bg-[#2C3930] peer-checked:font-bold">
+                            Yes
+                        </div>
+                    </label>
+                    <label class="block">
+                        <input type="radio" name="answer" value="No" class="hidden peer">
+                        <div class="text-2xl px-24 py-8 bg-[#A27B5C] text-white rounded-lg cursor-pointer hover:bg-[#8b694e] peer-checked:bg-[#2C3930] peer-checked:font-bold">
+                            No
+                        </div>
+                    </label>
+                </div>
+                <button type="submit" class="text-xl bg-gray-800 text-white py-2 px-4 rounded-lg hover:bg-blue-600">Next Question</button>
+            </div>
+        </form>
+        {% if not next_question_id %}
+            <p class="mt-6 text-center text-gray-700">You have reached the end of the quiz!</p>
+        {% endif %}
+    </div>
+
+    <script src="{% static 'quiz/script.js' %}"></script>
+</body>
+</html>
