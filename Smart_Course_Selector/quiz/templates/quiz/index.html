@@ -1,31 +1,138 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" id="top">
 <head>
-    <title>Quiz</title>
+    <title>Smart STEM Course Selector</title>
     <meta charset="utf-8">
     <meta name = "viewport" content = "width = device-width, initial-scale = 1.0"> <!--allow to be mobile responsive--> 
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap" rel="stylesheet">
     <script src = "https://cdn.tailwindcss.com"></script> <!--tailwind css -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'quiz/styles.css' %}">
 </head>
 <body>
+    <nav class="bg-[#A27B5C] shadow-md sticky top-0 z-50">
+        <div class="max-w-8xl px-4 sm:px-6 lg:px-8">
+          <div class="flex justify-between items-center h-26">
+            <!-- Logo -->
+            <div class="flex-shrink-0">
+                <a href="javascript:void(0);" onclick="scrollToTop()" class="text-xl text-gray-800 hover:text-[#DCD7C9] font-bold transition duration-300">
+                <span class="text-2xl font-bold text-gray-800 uppercase tracking-wide">
+                    <h1 class="text-3xl font-bold">Smart </h1>
+                    <h1 class="text-3xl font-bold">STEM Course</h1>
+                    <h1 class="text-3xl font-bold">Selector</h1>
+                </span>   
+              </a>
+            </div>
     
-    <div id="header" class="px-6 py-6" style="background-color: #A27B56;">
+            <!-- Navigation Links (Desktop) -->
+            <div class="hidden md:flex space-x-6" style="margin-top: 5%;">
+              <a href="javascript:void(0);" onclick="scrollToTop()" class="text-xl text-gray-800 hover:text-[#DCD7C9] font-bold transition duration-300">
+                Home
+              </a>
+              <a href="#about" class="text-xl text-gray-800 hover:text-[#DCD7C9] font-bold transition duration-300">
+                About us
+              </a>
+              <a href="#feedback" class="text-xl text-gray-800 hover:text-[#DCD7C9] font-bold transition duration-300">
+                Feedback
+              </a>
+            </div>
+    
+           <!-- Mobile Menu Button -->
+           <div id="mobileMenuButton" class="md:hidden">
+            <button class="text-gray-800 hover:text-blue-600 focus:outline-none">
+                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                </svg>
+            </button>
+                    </div>
+                </div>
+            </div>
 
-        <h1 class="text-3xl font-bold">Smart</h1>
-        <h1 class="text-3xl font-bold">Course</h1>
-        <h1 class="text-3xl font-bold">Selector</h1>
-    </div>
-    
-        <div class="bg-[#DCD7C9] h-screen px-6 py-24 flex flex-col items-center justify-start">
-            <h1 class="text-3xl font-bold text-center font-josefin-sans mt-6">
-                FIND THE PERFECT COURSE FOR YOU
-            </h1>
-            <p class="mt-6 text-center text-[26px] font-josefin-sans">
-                Not sure which course suits you best? Answer a few quick questions, and we'll help you discover the perfect fit based on your interests and strengths!
-            </p>
-            <a href="#" class="mt-12 bg-[#3F4F44] text-white px-6 py-3 rounded-lg font-josefin-sans text-[26px]">Start Quiz</a>
+        <!-- Mobile Menu (Hidden by Default) -->
+        <div id="mobileMenu" class="md:hidden overflow-hidden transition-all duration-500 max-h-0">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="javascript:void(0);" onclick="scrollToTop()" class="text-xl text-gray-800 hover:text-[#DCD7C9] font-bold transition duration-300">
+                    Home
+                </a>
+                <a href="#about" class="text-xl block text-gray-800 hover:text-[#DCD7C9] font-bold transition duration-300">
+                    About us
+                </a>
+                <a href="#feedback" class="text-xl block text-gray-800 hover:text-[#DCD7C9] font-bold transition duration-300">
+                    Feedback
+                </a>
+            </div>
         </div>
-  
-    
+    </nav>
+      
+    <!-- Home Section -->
+    <section id="home" class="px-8 py-36 flex flex-col items-center justify-start">
+        <h1 class="text-4xl font-bold text-gray-800 uppercase tracking-wide  text-center mt-6">
+            FIND THE PERFECT COURSE FOR YOU
+        </h1>
+        <p class="mt-6 text-center text-[26px] font-josefin-sans">
+            Not sure which course suits you best? Answer a few quick<br>questions, and we'll help you discover the perfect fit<br> based on your interests and strengths!
+        </p>
+        <a href="#quiz" class="mt-12 bg-[#3F4F44] text-white px-6 py-3 rounded-lg font-josefin-sans text-[26px] hover:bg-[#2C3930] active:text-[#DCD7C9]">Start Quiz</a>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="px-8 py-36 flex flex-col items-center justify-start">
+        <h2 class="text-4xl font-bold text-center font-josefin-sans">About Us</h2>
+        <p class="mt-6 text-center text-[26px] font-josefin-sans">
+            Choosing the right STEM module can be daunting for students due to the diverse<br> range of topics. Our Smart Module Selector is a user-friendly web app that <br>streamlines this decision-making process. By answering up to 15 curated questions,<br> students receive personalized module recommendations aligned with their interests,<br> skills, and career goals.
+        </p>
+        <br>
+        <p class="mt-6 text-center text-[26px] font-josefin-sans">
+            Using logical mapping and intelligent filtering, our tool narrows down options <br>based on factors like problem-solving preferences and mathematical inclination.<br> Whether interested in AI, Cybersecurity, Software Development, or Data Science,<br> our platform provides valuable insights to guide students in their academic journey <br>with confidence.
+        </p>
+        <br>
+        <h2 class="text-4xl font-bold text-center font-josefin-sans">Get Cracking!</h2>
+        <!-- Add Image Here -->
+        <img src="{% static 'quiz/images/TeamPhoto.jpg' %}" 
+        alt="Team Image" 
+        class="mt-12 w-full max-w-2xl rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+    </section>
+
+    <!-- Feedback Section -->
+    <section id="feedback" class="px-8 py-24">
+        <h2 class="text-4xl font-bold text-center font-josefin-sans">Feedback</h2>
+        <p class="mt-6 text-center text-[26px] font-josefin-sans">
+            "Your thoughts matter! Share your feedback with us!" 😊🚀
+        </p>
+        <form class="mt-8 w-full max-w-2xl mx-auto bg-[#A27B5C] p-6 rounded-lg shadow-lg">
+            <div class="flex items-center space-x-4 mb-6">
+                <label class="text-xl font-bold">Rate Us:</label>
+                <div class="flex">
+                    <label class="flex flex-col items-center cursor-pointer" dir="ltr">
+                        <input type="radio" name="rating" value="1" class="hidden" onclick="handleRatingClick(this)">
+                        <span class="rating-number text-xl font-bold bg-gray-200 p-2 rounded-s-lg hover:bg-gray-300">1</span>
+                    </label>
+                    <label class="flex flex-col items-center cursor-pointer">
+                        <input type="radio" name="rating" value="2" class="hidden" onclick="handleRatingClick(this)">
+                        <span class="rating-number text-xl font-bold bg-gray-200 p-2 rounded-none hover:bg-gray-300">2</span>
+                    </label>
+                    <label class="flex flex-col items-center cursor-pointer">
+                        <input type="radio" name="rating" value="3" class="hidden" onclick="handleRatingClick(this)">
+                        <span class="rating-number text-xl font-bold bg-gray-200 p-2 rounded-none hover:bg-gray-300">3</span>
+                    </label>
+                    <label class="flex flex-col items-center cursor-pointer">
+                        <input type="radio" name="rating" value="4" class="hidden" onclick="handleRatingClick(this)">
+                        <span class="rating-number text-xl font-bold bg-gray-200 p-2 rounded-none hover:bg-gray-300">4</span>
+                    </label>
+                    <label class="flex flex-col items-center cursor-pointer" dir="rtl">
+                        <input type="radio" name="rating" value="5" class="hidden" onclick="handleRatingClick(this)">
+                        <span class="rating-number text-xl font-bold bg-gray-200 p-2 rounded-s-lg hover:bg-gray-300">5</span>
+                    </label>
+                </div>
+            </div>
+            <textarea class="w-full h-48 p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3F4F44] resize-none" placeholder="Enter your feedback here..."></textarea>
+            <div class="flex justify-end">
+                <button type="submit" class="mt-4 bg-[#3F4F44] text-white px-6 py-3 rounded-lg font-josefin-sans text-[26px] hover:bg-[#2C3930] active:text-[#DCD7C9]">Submit</button>
+            </div>
+        </form>
+    </section>
+
+
+    <script src="{% static 'quiz/script.js' %}"></script>
 </body>
 </html>
