@@ -1,34 +1,59 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Question, Answer
+from .models import QuizSession, Question, Recommendation, Answer
+from .forms import QuizForm
 
 # Create your views here.
 def index(request):
     return render(request, 'quiz/index.html')
 
 
-def quiz(request, question_id=None):
+def start_quiz(request):
+    # Get the first question (or None if no questions exist)
+    first_question = Question.objects.first()
+
+    # Create a new QuizSession and set the first question
+    session = QuizSession.objects.create(current_question=first_question)
+
+    # Redirect to the quiz view with the session ID
+    return redirect('quiz_with_session', session_id=session.id)
+
+
+
+
+def get_next_question(session):
+    answered_questions = session.answers.values_list('question', flat=True)
+    return Question.objects.exclude(id__in=answered_questions).first()
+
+
+
+
+def quiz(request, session_id):
+    session = get_object_or_404(QuizSession, id=session_id)
+
+    if session.current_question is None:
+        # Redirect or handle missing current_question
+        return redirect('index')
+
+    current_question = session.current_question
+
     if request.method == 'POST':
-        # Save the user's answer
-        selected_answer = request.POST.get('answer')
-        question_id = request.POST.get('question_id')
-        question = get_object_or_404(Question, id=question_id)
-        Answer.objects.create(
-            question=question,
-            selected_answer=selected_answer,
-            score=(selected_answer == question.correct_option)
-        )
-
-    if question_id:
-        question = get_object_or_404(Question, id=question_id)
+        form = QuizForm(current_question, request.POST)
+        if form.is_valid():
+            answer = form.cleaned_data['answer']
+            session.answers.add(answer)
+            # Get the next question
+            next_question = get_next_question(session)
+            if next_question:
+                session.current_question = next_question
+                session.save()
+                return redirect('quiz_with_session', session_id=session.id)
+            else:
+                return redirect('display_recommendation', session_id=session.id)
     else:
-        # Get the first question
-        question = Question.objects.first()
+        form = QuizForm(current_question)
 
-    # Get the next question ID
-    next_question = Question.objects.filter(id__gt=question.id).first()
+    return render(request, 'quiz/quiz.html', {
+        'form': form,
+        'question': current_question
+    })
 
-    context = {
-        'question': question,
-        'next_question_id': next_question.id if next_question else None,
-    }
-    return render(request, 'quiz/quiz.html', context)
