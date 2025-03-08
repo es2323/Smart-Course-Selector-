@@ -34,13 +34,19 @@ class QuizSession(models.Model):
         return sum(answer.score for answer in self.answers.all())
     
     def get_recommendations(self, top_n=3):
-        total_score = self.calculate_total_score()
-        recommendations = Recommendation.objects.filter(min_score__lte=total_score).order_by('-min_score')[:top_n]
-        return recommendations
+        recommendations = []
+        for recommendation in Recommendation.objects.all():
+            relevant_questions = recommendation.relevant_questions.all()
+            answers = self.answers.filter(question__in=relevant_questions, text="Yes")
+            if answers.count() == relevant_questions.count():
+                recommendations.append(recommendation)
+
+        # Limit to top_n recommendations
+        return recommendations[:top_n]
 
 class Recommendation(models.Model):
     degree_name = models.CharField(max_length=255)
-    min_score = models.IntegerField(default=0)  # Set a default value for min_score
+    relevant_questions = models.ManyToManyField(Question) # Questions relevant to this recommendation
     criteria = models.TextField()
 
     def __str__(self):

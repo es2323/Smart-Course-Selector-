@@ -57,9 +57,11 @@ def quiz(request, session_id):
         'question': current_question
     })
 
+
 def quiz_result(request, session_id):
     quiz_session = get_object_or_404(QuizSession, id=session_id)
     recommendations = quiz_session.get_recommendations(top_n=3)
     return render(request, 'quiz/quiz_result.html', {'quiz_session': quiz_session, 'recommendations': recommendations})
+
 
 
