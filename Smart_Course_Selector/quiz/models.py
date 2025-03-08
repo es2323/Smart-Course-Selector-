@@ -28,10 +28,19 @@ class QuizSession(models.Model):
 
     def __str__(self):
         return f"Session ID: {self.id} (Current Question: {self.current_question})"
-
+    
+    def calculate_total_score(self):
+        # Calculate the total score based on the user's answers
+        return sum(answer.score for answer in self.answers.all())
+    
+    def get_recommendations(self, top_n=3):
+        total_score = self.calculate_total_score()
+        recommendations = Recommendation.objects.filter(min_score__lte=total_score).order_by('-min_score')[:top_n]
+        return recommendations
 
 class Recommendation(models.Model):
     degree_name = models.CharField(max_length=255)
+    min_score = models.IntegerField(default=0)  # Set a default value for min_score
     criteria = models.TextField()
 
     def __str__(self):

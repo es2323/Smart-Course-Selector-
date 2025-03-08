@@ -48,7 +48,7 @@ def quiz(request, session_id):
                 session.save()
                 return redirect('quiz_with_session', session_id=session.id)
             else:
-                return redirect('display_recommendation', session_id=session.id)
+                return redirect('quiz_result', session_id=session.id)
     else:
         form = QuizForm(current_question)
 
@@ -56,4 +56,10 @@ def quiz(request, session_id):
         'form': form,
         'question': current_question
     })
+
+def quiz_result(request, session_id):
+    quiz_session = get_object_or_404(QuizSession, id=session_id)
+    recommendations = quiz_session.get_recommendations(top_n=3)
+    return render(request, 'quiz/quiz_result.html', {'quiz_session': quiz_session, 'recommendations': recommendations})
+
 

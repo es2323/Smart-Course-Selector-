@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quiz Result</title>
+</head>
+<body>
+    <h1>Quiz Result</h1>
+    <p>Session ID: {{ quiz_session.id }}</p>
+    <p>Total Score: {{ quiz_session.calculate_total_score }}</p>
+
+    {% if recommendations %}
+        <h2>Recommended Degrees:</h2>
+        <ul>
+            {% for recommendation in recommendations %}
+                <li>{{ recommendation.degree_name }}: {{ recommendation.criteria }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No recommendations available based on your answers.</p>
+    {% endif %}
+</body>
+</html>
